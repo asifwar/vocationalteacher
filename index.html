@@ -8,38 +8,47 @@
   body {
     margin: 0;
     height: 100vh;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
     color: white;
     text-align: center;
+  }
+
+  /* Full-screen video background */
+  .video-wrapper {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 1;
     overflow: hidden;
-    padding: 20px;
   }
 
-  /* Small "tap anywhere" hint */
-  #hint {
-    position: absolute;
-    bottom: 20px;
-    font-size: 0.7em;
-    color: #555;
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
+  /* Container for text and heart/confetti */
   .container {
+    position: relative;
+    z-index: 2;
     max-width: 400px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
     padding: 20px;
-    background: rgba(0,0,0,0.6);
     border-radius: 15px;
     opacity: 0;
-    transform: scale(0.7);
     transition: all 1s ease;
   }
 
   .container.show {
     opacity: 1;
-    transform: scale(1);
   }
 
   h1 {
@@ -48,18 +57,12 @@
     margin-bottom: 10px;
   }
 
-  h2 {
-    font-size: 1.3em;
-    color: #fff;
-    margin-bottom: 15px;
-  }
-
   #typed-message {
     font-size: 1em;
-    color: #ddd;
     line-height: 1.4;
     min-height: 80px;
     white-space: pre-wrap;
+    color: #fff;
   }
 
   .heart {
@@ -87,15 +90,31 @@
     100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
   }
 
+  #hint {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.7em;
+    color: #ddd;
+    z-index: 2;
+  }
+
   @media(max-width: 350px){
     h1 { font-size: 1.5em; }
-    h2 { font-size: 1.1em; }
     #typed-message { font-size: 0.95em; }
   }
 </style>
 </head>
 <body>
 
+<!-- Full-screen video -->
+<div class="video-wrapper" id="video">
+  <video autoplay loop muted playsinline>
+    <source src="https://raw.githubusercontent.com/YOUR_USERNAME/vocationalteacher/main/videoplayback.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<!-- Text, hearts, confetti container -->
 <div class="container" id="surprise">
   <h1 id="name-text" style="display:none;">Happy 21st Birthday, Baby Jani! 🎉</h1>
   <div id="typed-message"></div>
@@ -104,17 +123,13 @@
 
 <div id="hint">tap anywhere</div>
 
-<!-- Optional voice -->
-<audio id="voice" src="YOUR_VOICE_FILE.mp3"></audio>
-
 <script>
 const container = document.getElementById('surprise');
 const typedDiv = document.getElementById('typed-message');
+const videoDiv = document.getElementById('video');
 
-// Personal message
 const message = `Baby Jani ❤️,\n\nYou stood with me when no one did. You helped me in my hardest times, made me feel proud because of your rich character, and made me feel loved every single day.\n\nI love you so much.\n- Your Asii 💕`;
 
-// Function to type message
 function typeMessage(text, element, speed) {
   let i = 0;
   const interval = setInterval(() => {
@@ -124,7 +139,6 @@ function typeMessage(text, element, speed) {
   }, speed);
 }
 
-// Function to create confetti
 function createConfetti(num){
   for(let i=0;i<num;i++){
     const conf = document.createElement('div');
@@ -138,13 +152,13 @@ function createConfetti(num){
   }
 }
 
-// Tap anywhere to start the magic
+// Tap to trigger magic
 document.body.addEventListener('click', () => {
   container.classList.add('show');
   document.getElementById('hint').style.display = 'none';
-  
+
   document.getElementById('name-text').style.display = 'block';
-  
+
   setTimeout(() => {
     typeMessage(message, typedDiv, 50);
   }, 500);
@@ -154,11 +168,8 @@ document.body.addEventListener('click', () => {
     createConfetti(30);
   }, 5000);
 
-  // Play voice
-  const audio = document.getElementById('voice');
-  if(audio) audio.play();
 }, { once:true });
-
 </script>
+
 </body>
 </html>
