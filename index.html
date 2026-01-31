@@ -3,168 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 21st Birthday Baby Jani!</title>
+<title>Result</title>
+
+<!-- Cursive Font -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    position: relative;
-    color: white;
-    text-align: center;
-  }
+body{
+  margin:0;
+  background:black;
+  overflow:hidden;
+  color:white;
+}
 
-  /* Full-screen video background */
-  .video-wrapper {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index: 1;
-    overflow: hidden;
-  }
+/* ---------- GOVT GATE ---------- */
+#gate{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
 
-  .video-wrapper video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.gate-box{
+  text-align:center;
+}
 
-  /* Container for text and heart/confetti */
-  .container {
-    position: relative;
-    z-index: 2;
-    max-width: 400px;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 15px;
-    opacity: 0;
-    transition: all 1s ease;
-  }
+#viewBtn{
+  margin-top:25px;
+  padding:12px 30px;
+  font-size:1em;
+  background:white;
+  color:black;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
 
-  .container.show {
-    opacity: 1;
-  }
+/* ---------- FULL REEL VIDEO ---------- */
+.video-wrapper{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:1;
+}
 
-  h1 {
-    font-size: 1.8em;
-    color: #FF4E50;
-    margin-bottom: 10px;
-  }
+.video-wrapper.show{
+  display:block;
+}
 
-  #typed-message {
-    font-size: 1em;
-    line-height: 1.4;
-    min-height: 80px;
-    white-space: pre-wrap;
-    color: #fff;
-  }
+video{
+  width:100%;
+  height:100%;
+  object-fit:cover; /* FULL REEL */
+}
 
-  .heart {
-    font-size: 2em;
-    color: #FF4E50;
-    animation: beat 1s infinite alternate;
-    margin-top: 20px;
-    display: none;
-  }
+/* ---------- TEXT OVER VIDEO (BOTTOM) ---------- */
+.container{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:420px;
+  background:rgba(0,0,0,0.55);
+  padding:18px;
+  border-radius:15px;
+  text-align:center;
+  font-family:'Dancing Script', cursive;
+  font-size:1.2em;
+  opacity:0;
+  transition:1.2s;
+  z-index:2;
+}
 
-  @keyframes beat {
-    to { transform: scale(1.3); }
-    from { transform: scale(1); }
-  }
+.container.show{
+  opacity:1;
+}
 
-  .confetti {
-    position: absolute;
-    font-size: 1.5em;
-    animation: float 5s linear infinite;
-    color: #FF4E50;
-  }
+h1{
+  margin:0 0 10px;
+  font-size:1.8em;
+  color:#ff6b6b;
+}
 
-  @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity:1; }
-    100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
-  }
+#typed-message{
+  white-space:pre-wrap;
+  line-height:1.4;
+}
 
-  #hint {
-    position: absolute;
-    bottom: 20px;
-    font-size: 0.7em;
-    color: #ddd;
-    z-index: 2;
-  }
+/* HEART */
+.heart{
+  font-size:2em;
+  margin-top:10px;
+  animation:beat 1s infinite alternate;
+  display:none;
+}
 
-  @media(max-width: 350px){
-    h1 { font-size: 1.5em; }
-    #typed-message { font-size: 0.95em; }
+@keyframes beat{
+  from{transform:scale(1);}
+  to{transform:scale(1.3);}
+}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  top:-10px;
+  font-size:1.5em;
+  animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
   }
+}
 </style>
 </head>
+
 <body>
 
-<!-- Full-screen video -->
-<div class="video-wrapper" id="video">
-  <video id="bgvideo" loop playsinline style="width:100%; height:100%; object-fit:cover;">
-    <source src="https://raw.githubusercontent.com/asifwar/vocationalteacher/main/NewBJ.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+<!-- GOVT SCREEN -->
+<div id="gate">
+  <div class="gate-box">
+    <h2>Government of Jammu and Kashmir</h2>
+    <p>Tourism & Hospitality Department</p>
+    <button id="viewBtn">View Result</button>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-wrapper" id="videoWrap">
+  <video id="bgvideo" loop playsinline preload="auto">
+    <source src="https://asifwar.github.io/vocationalteacher/videoplayback.mp4" type="video/mp4">
   </video>
-</div>
 
-<!-- Text, hearts, confetti container -->
-<div class="container" id="surprise">
-  <h1 id="name-text" style="display:none;">Happy 21st Birthday, Baby Jani! 🎉</h1>
-  <div id="typed-message"></div>
-  <div class="heart" id="heart">❤️</div>
+  <!-- TEXT ON VIDEO (BOTTOM) -->
+  <div class="container" id="surprise">
+    <h1>Happy 21st Birthday Baby Jani ❤️</h1>
+    <div id="typed-message"></div>
+    <div class="heart" id="heart">❤️</div>
+  </div>
 </div>
-
-<div id="hint">tap anywhere</div>
 
 <script>
-const container = document.getElementById('surprise');
-const typedDiv = document.getElementById('typed-message');
-const video = document.getElementById('bgvideo');
+const viewBtn = document.getElementById("viewBtn");
+const gate = document.getElementById("gate");
+const video = document.getElementById("bgvideo");
+const videoWrap = document.getElementById("videoWrap");
+const container = document.getElementById("surprise");
+const typedDiv = document.getElementById("typed-message");
 
-const message = `Baby Jani ❤️,\n\nYou stood with me when no one did. You helped me in my hardest times, made me feel proud because of your rich character, and made me feel loved every single day.\n\nI love you so much.\n- Your Asii 💕`;
+const message =
+`You stood with me when no one did.
+You held my hand in my hardest times.
+Your character makes me proud.
 
-function typeMessage(text, element, speed) {
-  let i = 0;
-  const interval = setInterval(() => {
-    element.innerHTML += text.charAt(i);
+I love you endlessly.
+– Your Asii`;
+
+function typeMessage(text, speed){
+  let i=0;
+  const interval=setInterval(()=>{
+    typedDiv.innerHTML += text.charAt(i);
     i++;
     if(i >= text.length) clearInterval(interval);
   }, speed);
 }
 
-function createConfetti(num){
-  for(let i=0;i<num;i++){
-    const conf = document.createElement('div');
-    conf.classList.add('confetti');
-    conf.style.left = Math.random() * 100 + 'vw';
-    conf.style.fontSize = (Math.random()*20+10) + 'px';
-    conf.style.animationDuration = (Math.random()*3 + 4) + 's';
-    conf.innerHTML = '❤️';
-    document.body.appendChild(conf);
-    setTimeout(()=> conf.remove(), 5000);
+function confetti(){
+  for(let i=0;i<25;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.innerHTML="❤️";
+    c.style.left=Math.random()*100+"vw";
+    c.style.fontSize=(Math.random()*20+10)+"px";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
   }
 }
 
-// Tap to trigger video + surprise
-document.body.addEventListener('click', () => {
-  video.play(); // start video with sound
-  container.classList.add('show');
-  document.getElementById('hint').style.display = 'none';
+viewBtn.addEventListener("click",()=>{
+  gate.style.display="none";
+  videoWrap.classList.add("show");
+  video.muted=false;
+  video.play();
 
-  document.getElementById('name-text').style.display = 'block';
+  setTimeout(()=>{
+    container.classList.add("show");
+    typeMessage(message,45);
+  },800);
 
-  setTimeout(() => typeMessage(message, typedDiv, 50), 500);
-  setTimeout(() => { document.getElementById('heart').style.display = 'block'; createConfetti(30); }, 5000);
-}, { once:true });
+  setTimeout(()=>{
+    document.getElementById("heart").style.display="block";
+    confetti();
+  },4500);
+});
 </script>
-
 
 </body>
 </html>
