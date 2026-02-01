@@ -3,51 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Result</title>
+<title>JK Vocational Teacher Result</title>
 
-<!-- Cursive Font -->
+<!-- Cursive font only for surprise -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  background:black;
-  overflow:hidden;
-  color:white;
+  background:#f4f6f8;
+  font-family: "Times New Roman", serif;
+  color:#000;
 }
 
-/* ---------- GOVT GATE ---------- */
+/* ================= GOVT PAGE ================= */
 #gate{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:10;
+  min-height:100vh;
+  padding:20px;
 }
 
-.gate-box{
+.govt-box{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border:1px solid #ccc;
+}
+
+.header{
   text-align:center;
+  border-bottom:2px solid #000;
+  padding-bottom:10px;
+}
+
+.header h2{
+  margin:0;
+  font-size:1.4em;
+  text-transform:uppercase;
+}
+
+.header p{
+  margin:5px 0 0;
+  font-size:0.95em;
+}
+
+.notice{
+  margin-top:20px;
+  font-size:0.95em;
+  line-height:1.6;
+}
+
+.notice strong{
+  display:block;
+  margin-bottom:10px;
+}
+
+.notice ul{
+  margin-top:10px;
+}
+
+.footer-note{
+  margin-top:25px;
+  font-size:0.9em;
 }
 
 #viewBtn{
-  margin-top:25px;
-  padding:12px 30px;
-  font-size:1em;
-  background:white;
-  color:black;
+  display:block;
+  margin:30px auto 0;
+  padding:10px 35px;
+  font-size:0.95em;
+  background:#0b5ed7;
+  color:white;
   border:none;
-  border-radius:8px;
+  border-radius:4px;
   cursor:pointer;
 }
 
-/* ---------- FULL REEL VIDEO ---------- */
+/* ================= SURPRISE PART ================= */
 .video-wrapper{
   position:fixed;
   inset:0;
+  background:black;
   display:none;
-  z-index:1;
+  z-index:10;
 }
 
 .video-wrapper.show{
@@ -57,35 +95,35 @@ body{
 video{
   width:100%;
   height:100%;
-  object-fit:cover; /* FULL REEL */
+  object-fit:cover;
 }
 
-/* ---------- TEXT OVER VIDEO (BOTTOM) ---------- */
+/* TEXT ON VIDEO */
 .container{
   position:absolute;
-  bottom:40px;
+  bottom:90px;
   left:50%;
   transform:translateX(-50%);
   width:90%;
   max-width:420px;
-  background:rgba(0,0,0,0.55);
+  background:rgba(0,0,0,0.30);
   padding:18px;
-  border-radius:15px;
+  border-radius:16px;
   text-align:center;
   font-family:'Dancing Script', cursive;
-  font-size:1.2em;
+  font-size:1.25em;
+  color:white;
   opacity:0;
   transition:1.2s;
-  z-index:2;
 }
 
 .container.show{
   opacity:1;
 }
 
-h1{
+.container h1{
   margin:0 0 10px;
-  font-size:1.8em;
+  font-size:1.9em;
   color:#ff6b6b;
 }
 
@@ -94,10 +132,9 @@ h1{
   line-height:1.4;
 }
 
-/* HEART */
 .heart{
   font-size:2em;
-  margin-top:10px;
+  margin-top:12px;
   animation:beat 1s infinite alternate;
   display:none;
 }
@@ -107,7 +144,6 @@ h1{
   to{transform:scale(1.3);}
 }
 
-/* CONFETTI */
 .confetti{
   position:fixed;
   top:-10px;
@@ -126,22 +162,50 @@ h1{
 
 <body>
 
-<!-- GOVT SCREEN -->
+<!-- ================= GOVT PAGE ================= -->
 <div id="gate">
-  <div class="gate-box">
-    <h2>Government of Jammu and Kashmir</h2>
-    <p>Tourism & Hospitality Department</p>
-    <button id="viewBtn">View Result</button>
+  <div class="govt-box">
+    <div class="header">
+      <h2>Government of Jammu and Kashmir</h2>
+      <p>Directorate of Skill Development</p>
+      <p>Department of Tourism & Hospitality</p>
+    </div>
+
+    <div class="notice">
+      <strong>
+        Notification No: JKTED/VOC/2026/04<br>
+        Dated: 12-02-2026
+      </strong>
+
+      <p><strong>Subject:</strong> Provisional Selection List for the post of <strong>Vocational Teacher (Tourism & Hospitality)</strong>.</p>
+
+      <p>
+        In pursuance of the advertisement issued by the Directorate of Skill Development,
+        the provisional selection list of candidates for engagement as Vocational Teachers
+        in Government Institutions is hereby notified.
+      </p>
+
+      <ul>
+        <li>The selection is purely provisional and subject to verification of documents.</li>
+        <li>Any discrepancy found at any stage shall lead to cancellation of candidature.</li>
+        <li>No separate intimation shall be issued to individual candidates.</li>
+      </ul>
+
+      <p class="footer-note">
+        Candidates are advised to check their result by clicking the button below.
+      </p>
+
+      <button id="viewBtn">View Result</button>
+    </div>
   </div>
 </div>
 
-<!-- VIDEO -->
+<!-- ================= SURPRISE ================= -->
 <div class="video-wrapper" id="videoWrap">
   <video id="bgvideo" loop playsinline preload="auto">
     <source src="https://asifwar.github.io/vocationalteacher/NewBJ.mp4" type="video/mp4">
   </video>
 
-  <!-- TEXT ON VIDEO (BOTTOM) -->
   <div class="container" id="surprise">
     <h1>Happy 21st Birthday Baby Jani ❤️</h1>
     <div id="typed-message"></div>
@@ -189,8 +253,9 @@ function confetti(){
 viewBtn.addEventListener("click",()=>{
   gate.style.display="none";
   videoWrap.classList.add("show");
-  video.muted=false;
-  video.play();
+
+  video.muted = false;
+  video.play().catch(()=>{});
 
   setTimeout(()=>{
     container.classList.add("show");
